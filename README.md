@@ -1,4 +1,4 @@
-\# TicketBot
+# TicketBot
 
 
 
@@ -16,15 +16,15 @@ Runs fully locally: phi3 through Ollama, FastAPI for the API.
 
 
 
-\## How it works
+## How it works
 
 
 
-1\. \*\*Model (phi3).\*\* Reads the ticket and fills a fixed schema: reasoning,
+1\. **Model (phi3).** Reads the ticket and fills a fixed schema: reasoning,
 
 &#x20;  category, priority, a yes/no security flag, and an action.
 
-2\. \*\*Policy (`policy\_action` in `rules.py`).\*\* The final action is decided in
+2\. **Policy (`policy\_action` in `rules.py`).** The final action is decided in
 
 &#x20;  code from the priority, not taken from the model:
 
@@ -34,7 +34,7 @@ Runs fully locally: phi3 through Ollama, FastAPI for the API.
 
 &#x20;  - everything else goes to a team
 
-3\. \*\*Rules (`rules.py`).\*\* Safety checks that run after the policy:
+3\. **Rules (`rules.py`).** Safety checks that run after the policy:
 
 &#x20;  - legal language (lawyer, lawsuit, chargeback...) forces escalation
 
@@ -56,7 +56,7 @@ which marks tickets a person should double-check.
 
 
 
-\## Setup and run
+## Setup and run
 
 
 
@@ -98,7 +98,7 @@ called. If the model fails, the API returns a 503 and logs the real error.
 
 
 
-\## Files
+## Files
 
 
 
@@ -126,7 +126,7 @@ called. If the model fails, the API returns a 503 and logs the real error.
 
 
 
-\## Results on the 33 sample tickets
+## Results on the 33 sample tickets
 
 
 
@@ -154,7 +154,7 @@ These numbers are optimistic. See the limitations.
 
 
 
-\## Model choice
+## Model choice
 
 
 
@@ -168,11 +168,11 @@ as a rough ranking only.
 
 
 
-\## Known limitations
+## Known limitations
 
 
 
-\- \*\*Small, self-made test set.\*\* The 33 tickets were written by one person,
+\- **Small, self-made test set.** The 33 tickets were written by one person,
 
 &#x20; and the prompt and rules were adjusted after reading their errors. The
 
@@ -180,7 +180,7 @@ as a rough ranking only.
 
 &#x20; thing to do before real use is test on real tickets.
 
-\- \*\*Priority is the weakest field.\*\* It tends to be one level too severe. The
+\- **Priority is the weakest field.** It tends to be one level too severe. The
 
 &#x20; security flag is what escalates compromised-account tickets when the
 
@@ -188,19 +188,19 @@ as a rough ranking only.
 
 &#x20; author, so treat as a small sample).
 
-\- \*\*Keyword rules are English-only,\*\* and phi3's handling of other languages
+\- **Keyword rules are English-only,** and phi3's handling of other languages
 
 &#x20; has not been tested.
 
-\- \*\*False alarms exist.\*\* Any ticket containing words like "legal" is
+\- **False alarms exist.** Any ticket containing words like "legal" is
 
 &#x20; escalated, even in a harmless request (ticket 11).
 
-\- \*\*Ticket 7 (data loss plus a legal threat) is sometimes given the wrong
+\- **Ticket 7 (data loss plus a legal threat) is sometimes given the wrong
 
-&#x20; category.\*\* It is still escalated by the legal rule.
+&#x20; category.** It is still escalated by the legal rule.
 
-\- \*\*The `reasoning` text is a model note, not evidence.\*\* The last automatic
+\- **The `reasoning` text is a model note, not evidence.** The last automatic
 
 &#x20; check found no empty or one-word notes, but a note can still be wrong
 
@@ -210,23 +210,23 @@ as a rough ranking only.
 
 &#x20; `reasoning` to customers.
 
-\- \*\*The policy table is a guess.\*\* Which tickets go to a human, a team, or an
+\- **The policy table is a guess.** Which tickets go to a human, a team, or an
 
 &#x20; auto reply is a business decision and should be set by the support team. For
 
 &#x20; example, a double charge is currently routed to a team, not a human.
 
-\- \*\*Prompt changes have side effects.\*\* Editing the prompt or schema moved
+\- **Prompt changes have side effects.** Editing the prompt or schema moved
 
 &#x20; unrelated tickets every time. Re-run `evaluate.py` after any change.
 
-\- \*\*Local model speed.\*\* Each ticket takes seconds, and the first request after
+\- **Local model speed.** Each ticket takes seconds, and the first request after
 
 &#x20; startup is slower while the model loads.
 
 
 
-\## Next steps
+## Next steps
 
 
 
